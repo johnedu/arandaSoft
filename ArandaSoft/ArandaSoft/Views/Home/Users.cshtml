@@ -1,0 +1,112 @@
+﻿@using ArandaSoft.Model.ValueObjects
+@using ArandaSoft.Model.Consts
+@{
+    UserSession userSession = ViewData["userSession"] as UserSession;
+}
+
+@model IEnumerable<ArandaSoft.Model.OutputModels.AppUserOutput>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Usuarios</h2>
+
+@if (userSession != null && userSession.Permissions.Any(x => x == ArandaSoftConsts.CreateUserPermission))
+{
+    <p>
+        @Html.ActionLink("Crear nuevo usuario", "CreateUser")
+    </p>
+}
+<table class="table">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.RoleName)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleName)
+        </td>
+        <td>
+            @if (userSession != null && userSession.Permissions.Any(x => x == ArandaSoftConsts.EditUserPermission))
+            {
+                @Html.ActionLink("Editar", "UpdateUser", new { appUserId = item.Id });
+            }
+        </td>
+        <td>
+
+            @if (userSession != null && userSession.Permissions.Any(x => x == ArandaSoftConsts.DeleteUserPermission))
+            {
+                @Html.ActionLink("Eliminar", "DeleteUser", new { appUserId = item.Id });
+            }
+        </td>
+    </tr>
+    }
+</table>
+@if (ViewBag.Error != null)
+{
+    <div class="row alert-dismissable">
+        <div class="col-md-12 text-center">
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        </div>
+    </div>
+}
+<script>
+    setTimeout(function () {
+        var alerts = document.getElementsByClassName("alert-dismissable");
+
+        for (var i = 0; i < alerts.length; i++) {
+            alerts[i].style.display = "none";
+        }
+    }, 3000);
+</script>
