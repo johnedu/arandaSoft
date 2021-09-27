@@ -96,5 +96,3 @@ INSERT INTO dbo.AppRolePermission VALUES (@AdministradorRole, @UserListPermissio
 INSERT INTO dbo.AppRolePermission VALUES (@AdministradorRole, @EditUserPermission)
 INSERT INTO dbo.AppRolePermission VALUES (@AdministradorRole, @DeleteUserPermission)
 INSERT INTO dbo.AppRolePermission VALUES (@AdministradorRole, @CreateUserPermission)
-
-SELECT * FROM dbo.AppUser
